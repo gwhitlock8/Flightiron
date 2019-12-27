@@ -7,7 +7,7 @@ class Flight
     
     def flight_search
         #self.class.get("origin=#{origin}&destination=#{destination}&depart_date=#{departure_date}&return_date=#{return_date}&token=#{API_TOKEN}")
-        self.class.get("origin=HOU&destination=LAX&depart_date=2020-01&return_date=2020-02&token=cc1f7b57d0a00136c286c8fe4ae4fc06")
+        self.class.get("origin=HOU&destination=LAX&depart_date=2020-01&return_date=2020-02&token=")
     end
 end
 
