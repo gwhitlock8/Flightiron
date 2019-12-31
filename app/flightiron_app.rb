@@ -5,13 +5,16 @@ class FlightironApp
 
 
     def self.start
-      self.login_message
+      self.login
       #self.menu
       self.call_method
     end
 
-    def self.login_message
-        puts 'Greetings user'
+    def self.login
+        puts 'Greetings user. Welcome to the flightiron app'
+        print 'please enter your username:'
+        username = gets.chomp
+        User.find_by(username: username) ? current_user = User.find_by(username: username) : current_user = User.create_account(username)
         # call a method for user to login -- will make more personal
     end
 
@@ -19,7 +22,7 @@ class FlightironApp
          puts 'Please select an option:
         1. Look for flights
         2. View Tickets
-        3. Change Username
+        3. Update Info
         4. Cancel Flight
         5. Close App'
         self.get_user_choice
