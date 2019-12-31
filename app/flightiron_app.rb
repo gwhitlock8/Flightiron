@@ -36,7 +36,7 @@ class FlightironApp
            puts "Calling Flight.find flights"
            self.call_method
         when 2
-           puts 'Ticket.print()'
+           puts 'Ticket.print(user_id)'
            self.call_method
         when 3
              puts'calling User.change_username'
