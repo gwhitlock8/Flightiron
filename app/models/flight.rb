@@ -2,8 +2,8 @@ require 'httparty'
 require 'date'
 
 class Flight
-    has_many :tickets
-    has_many :users, through: :tickets
+    #has_many :tickets
+    #has_many :users, through: :tickets
 
     def convert_user_date_to_unix_timestamp(year,month,day)
         Date.new(year,month,day).to_time.to_i
