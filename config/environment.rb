@@ -1,5 +1,7 @@
 require 'bundler'
+require 'active_record'
 Bundler.require
+
 
 require_relative '../app/flightiron_app.rb'
 
