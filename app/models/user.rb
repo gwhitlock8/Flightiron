@@ -1,11 +1,12 @@
 class User < ActiveRecord::Base
     
     def self.create_account(username)
-        print "Please enter your password: "
+        puts 'User account not found. Creating new account.'
+        print "Please choose a password: "
         password = gets.chomp
         print "Please enter your hometown: "
         hometown = gets.chomp
-        User.new(username: username, password: password, hometown: hometown)
+        User.create(username: username, password: password, hometown: hometown)
     end
 
 end

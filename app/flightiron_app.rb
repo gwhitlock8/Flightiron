@@ -2,7 +2,7 @@ class FlightironApp
 
     #####This is just a rough version of the app for guidance
     #####If you don't agree with how the methods are called in the #call_method class, make note of it in github or something
-
+    attr_reader :current_user
 
     def self.start
       self.login
@@ -11,17 +11,18 @@ class FlightironApp
     end
 
     def self.login
-        puts 'Greetings user. Welcome to the flightiron app'
+        puts 'Greetings. Welcome to the flightiron app'
         print 'please enter your username:'
         username = gets.chomp
-        User.find_by(username: username) ? current_user = User.find_by(username: username) : current_user = User.create_account(username)
-        # call a method for user to login -- will make more personal
+        User.find_by(username: username) ? @current_user = User.find_by(username: username) : @current_user = User.create_account(username)
+        # binding.pry
     end
 
     def self.menu
+        puts "Welcome back #{@current_user.username}!"
          puts 'Please select an option:
         1. Look for flights
-        2. View Tickets
+        2. View Tickets - no choose -- broken
         3. Update Info
         4. Cancel Flight
         5. Close App'
@@ -39,7 +40,7 @@ class FlightironApp
            puts "Calling Flight.find flights"
            self.call_method
         when 2
-           puts 'Ticket.print(user_id)'
+           Ticket.print(@current_user.id)
            self.call_method
         when 3
              puts'calling User.change_username'

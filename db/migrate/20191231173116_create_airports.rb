@@ -5,5 +5,6 @@ class CreateAirports < ActiveRecord::Migration[5.2]
       t.string :region
       t.string :city
       t.string :icao_code
+    end
   end
 end
