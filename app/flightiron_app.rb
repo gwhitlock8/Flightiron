@@ -53,7 +53,7 @@ class FlightironApp
     end
 
     def self.select_flight(flights)
-        print 'please select a flight to confirm ticket, q to quit'
+        puts 'please select a flight to confirm ticket, q to quit'
         choice = gets.chomp
         case choice
         when 'q'
@@ -61,9 +61,8 @@ class FlightironApp
             self.call_method   
         else
             flight = flights[choice.to_i - 1]
-            #binding.pry
-            new_ticket = Ticket.create#(@current_user, selected_flight)
-           # binding.pry
+            binding.pry
+            new_ticket = Ticket.create(user_id: @current_user.id, flight_id: flight.id)
             @current_user.tickets << new_ticket
             flight.tickets << new_ticket
         end
@@ -85,7 +84,7 @@ class FlightironApp
             @current_user.user_update
             self.call_method
         when 4
-            Ticket.cancel_ticket
+            Ticket.cancel_ticket(@current_user.id)
             self.call_method
         when 5
            puts 'closing app....'
