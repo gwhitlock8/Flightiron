@@ -23,7 +23,7 @@ class Flight < ActiveRecord::Base
         base_url = ("https://aerodatabox.p.rapidapi.com/flights/airports/icao/")
         icao_code = self.convert_user_city_to_icao_airport_code(city)
         depart_date = self.convert_departure_date(date)
-        search_url = base_url + icao_code + "/" + depart_date[0] + "/" + depart_date[1]
+        search_url = base_url + icao_code + "/" + depart_date[0] + "/" + depart_date[1]+"?direction=Both"
         response = Unirest.get(search_url,
         headers: {
             "X-RapidAPI-Host" => 'aerodatabox.p.rapidapi.com',
@@ -39,14 +39,10 @@ class Flight < ActiveRecord::Base
                 Flight.create(flight_number: flight_num,airline: airline, departure_location: departure_location,departure_date:departure_date,arrival_location:arrival_location)
         end
 
-        user_flights = []
-        Flight.all.each do |flight|
-            if flight[:departure_location].downcase.strip == user.hometown.downcase.strip && flight[:arrival_location].downcase.strip == city.downcase.strip && flight[:departure_date].first(10) == date
-                user_flights << flight
-            end
-        end
+
+        user_flights = Flight.where(departure_location: user.hometown,arrival_location:city,departure_date:date)
+        #binding.pry
         user_flights
-        binding.pry
         FlightironApp.display_flights(user_flights)
     end
 end
