@@ -19,6 +19,7 @@ class Flight
     #     Airport.find_by(city: city).icao_code
     # end
 
+<<<<<<< HEAD
     def self.find_flight(city,departure_date)
         base_url = ("https://aerodatabox.p.rapidapi.com/flights/airports/icao/")
         #icao_code = convert_user_city_to_icao_code(city)
@@ -36,6 +37,17 @@ class Flight
             departure_location = #user hometown
             departure_date = flight["movement"]["scheduledTimeLocal"]
             arrival_location = flight["movement"]["airport"]["name"]
+=======
+    def self.find_flights(destination, date)
+        puts "#{destination}, #{date}"
+        #call method that gets api
+        #calls an app method that returns the flight data
+        #EX FlightironApp.display_flights(Get http:// whatever)
+
+    end
+
+end
+>>>>>>> cbdf738be5edb49f17f81310765379e520bb93ee
 
             Flight.create(flight_number: flight_num,airline: airline, departure_location: departure_location,departure_date:departure_date,arrival_location:arrival_location)
         end
