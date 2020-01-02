@@ -37,20 +37,16 @@ class Flight < ActiveRecord::Base
                 departure_date = flight["movement"]["scheduledTimeLocal"].first(10)
                 arrival_location = flight["movement"]["airport"]["name"]
                 Flight.create(flight_number: flight_num,airline: airline, departure_location: departure_location,departure_date:departure_date,arrival_location:arrival_location)
-            else
-                next
-            end
         end
 
         user_flights = []
         Flight.all.each do |flight|
-            binding.pry
-            if flight[:departure_location] == user.hometown && flight[:arrival_location] == city && flight[:departure_date] == date
+            if flight[:departure_location].downcase.strip == user.hometown.downcase.strip && flight[:arrival_location].downcase.strip == city.downcase.strip && flight[:departure_date].first(10) == date
                 user_flights << flight
-                binding.pry
             end
         end
         user_flights
+        binding.pry
         FlightironApp.display_flights(user_flights)
     end
 end
