@@ -6,7 +6,6 @@ class FlightironApp
 
     def self.start
       self.login
-      #self.menu
       self.call_method
     end
 
@@ -15,7 +14,7 @@ class FlightironApp
         print 'please enter your username:'
         username = gets.chomp
         User.find_by(username: username) ? @current_user = User.find_by(username: username) : @current_user = User.create_account(username)
-        puts "Welcome back #{@current_user.username}!"
+        puts "Hello #{@current_user.username}!"
         # binding.pry
     end
 
@@ -39,10 +38,14 @@ class FlightironApp
         month = gets.chomp
         print 'please enter day of travel:'
         day = gets.chomp
-        "#{month}-#{day}-2020"
+        "2020-#{month}-#{day}"
     end
 
     def self.display_flights(flights)
+        puts "|Flight ID|  Departure Date| Location To-From   |"
+        flights.each_with_index do |flight, index|
+            puts "#{index + 1}. #{flight[:flight_number]} -- #{flight[:departure_location]}"
+        end
         #format the flight info into a pretty style
         #show 5 at a time 
         #add options (show more flights), quit
@@ -55,13 +58,15 @@ class FlightironApp
         case choice
         when 'q'
             puts 'returning to main menu'
-            self.call_method
+            self.call_method   
         else
-            flight = flights[choice.to_i]
-            selected_flight = Flight.create(flight) #or some values of flight
-            new_ticket = Ticket.create(@current_user, current_flight)
-            User.tickets << new_ticket
-            Flight.tickets << new_ticket
+            flight = flights[choice.to_i - 1]
+            #binding.pry
+            new_ticket = Ticket.create#(@current_user, selected_flight)
+           # binding.pry
+            @current_user.tickets << new_ticket
+            flight.tickets << new_ticket
+        end
     end
 
     def self.call_method
@@ -71,17 +76,17 @@ class FlightironApp
             print 'please enter destination:'
             destination = gets.chomp
             date = format_date
-           Flight.find_flights(destination, date)
+           Flight.find_flights(destination,date,@current_user)
            self.call_method
         when 2
            Ticket.print(@current_user.id)
            self.call_method
         when 3
-             puts'calling User.update'
-           self.call_method
+            @current_user.user_update
+            self.call_method
         when 4
-            puts'calling Tickets(?).cancel_flight '
-           self.call_method
+            Ticket.cancel_ticket
+            self.call_method
         when 5
            puts 'closing app....'
            puts 'Thank you for using the Flightiron app. Have a nice day.'
