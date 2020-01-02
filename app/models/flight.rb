@@ -23,6 +23,14 @@ class Flight
     
     end
 
+    def self.find_flights(destination, date)
+        puts "#{destination}, #{date}"
+        #call method that gets api
+        #calls an app method that returns the flight data
+        #EX FlightironApp.display_flights(Get http:// whatever)
+
+    end
+
 end
 
 #https://USERNAME:PASSWORD@opensky-network.org/api/flights/departure?airport=EDDF&begin=1517227200&end=1517230800
