@@ -62,6 +62,7 @@ class FlightironApp
             new_ticket = Ticket.create(@current_user, current_flight)
             User.tickets << new_ticket
             Flight.tickets << new_ticket
+        end
     end
 
     def self.call_method
