@@ -1,4 +1,8 @@
 class User < ActiveRecord::Base
+
+    has_many :tickets
+    has_many :flights, through: :tickets
+
     
     def self.create_account(username)
         print "Please enter your password: "
