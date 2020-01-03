@@ -1,5 +1,6 @@
 require 'bundler'
 require 'active_record'
+require 'formatador'
 Bundler.require
 
 
