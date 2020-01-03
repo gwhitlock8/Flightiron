@@ -7,36 +7,42 @@ class User < ActiveRecord::Base
     def self.create_account(username)
         prompt = TTY::Prompt.new
         puts 'User account not found. Creating new account.'.cyan.bold
-        print "Please choose a password: "
-        password = gets.chomp
-        print "Please enter your hometown: "
-        hometown = gets.chomp
+        password = prompt.mask("Please choose a password: ")
+        hometown =  prompt.ask("Please enter your hometown: ")
         User.create(username: username, password: password, hometown: hometown)
     end
 
     def user_update
-        puts 'Please select the attribute that you would like to update:
-        1. username
-        2. password
-        3. hometown'
-        choice = gets.chomp
-
+        prompt = TTY::Prompt.new
+        choices = ['Update Username','Update Password','Update Hometown','Return to Main Menu']
+        choice = prompt.select("Please select an option below:",choices)
         case choice
-        when '1'
-            print "Please enter your new username: "
-            username = gets.chomp
+        when 'Update Username'
+            username = prompt.ask("Please enter your new username: ")
             self.update(username: username)
-        when '2'
-            print 'Please enter your new password: '
-            password = gets.chomp
+        when 'Update Password'
+            password = prompt.mask('Please enter your new password: ')
             self.update(password: password)
-        when '3'
-            print 'Please enter your new hometown: '
-            hometown = gets.chomp
+        when 'Update Hometown'
+            hometown = prompt.ask('Please enter your new hometown: ')
             self.update(hometown: hometown)
+        when 'Return to Main Menu'
+            FlightironApp.menu
+        end
+    end
+
+    def self.verify_password(username)
+        print "Please enter your password: "
+        password_input = gets.chomp
+       # binding.pry
+        if User.where(username: username, password: password_input).length != 0
+            #binding.pry
+            return User.where(username: username, password: password_input).take
         else
-            puts 'Please enter a number between 1 - 3.'
-            self.user_update
+           # binding.pry
+            puts "Incorrect username - password combination"
+            self.verify_password(username)
+            #FlightironApp.login
         end
     end
 
