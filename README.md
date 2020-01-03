@@ -3,17 +3,17 @@ Module One Final Project
 Flightiron App - find your flights easily
 ----------------------------------------
 
-#Introduction
+# Introduction
 Flightiron's goal is to make finding and selecting flights easy. Flightiron simplifies the user's experience by 
 
-##Table of contents
-*[Technologies](#technologies)
-*[Setup](#setup)
-*[Features](#features)
-*[To Do](#to-do)
-*[Project Status](#project_status)
+## Table of contents
+* [Technologies](#technologies)
+* [Setup](#setup)
+* [Features](#features)
+* [To Do](#to-do)
+* [Project Status](#project_status)
 
-##Technologies 
+## Technologies 
 This project uses
 
 -Ruby 2.6
@@ -24,7 +24,7 @@ This project uses
 -sqlite3 ~>1.3.6
 -rake
 
-##Setup
+## Setup
 To run the program from terminal, you must:
 
 ```
@@ -34,17 +34,17 @@ To run the program from terminal, you must:
  $ bundle exec ruby bin/run.rb
 ```
 
-###Features
+### Features
 -Select flights based on your requirements
 -Veiw and cancel your tickets
 -Change your information
 -Navigate the command prompt using arrow keys
 
-##To Do
+## To Do
 -Make Usernames unique
 -Option to find forgotten password
 -Encrypt passwords
 -Limit flights displayed at a time
 
-###Project Status
+### Project Status
 Effort to implement to-do and add features for improved user experience
