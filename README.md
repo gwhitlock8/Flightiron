@@ -4,7 +4,7 @@ Flightiron App - find your flights easily
 ----------------------------------------
 
 # Introduction
-Flightiron's goal is to make finding and selecting flights easy. Flightiron simplifies the user's experience by 
+Flightiron's goal is to make finding and selecting flights easy. Flightiron simplifies the user's experience by providing them with flight data and allowing them to select a 'flight', adding it to their 'ticket'
 
 ## Table of contents
 * [Technologies](#technologies)
