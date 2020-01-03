@@ -1,7 +1,4 @@
 class FlightironApp
-
-    #####This is just a rough version of the app for guidance
-    #####If you don't agree with how the methods are called in the #call_method class, make note of it in github or something
     attr_reader :current_user
 
     prompt = TTY::Prompt.new
@@ -12,14 +9,13 @@ class FlightironApp
     end
 
     def self.login
+        prompt = TTY::Prompt.new
         puts "Greetings. Welcome to the flightiron app!".yellow
-        print "Please enter your username: ".green.bold
-        username = gets.chomp
-        User.find_by(username: username) ? @current_user = User.find_by(username: username) : @current_user = User.create_account(username)
+        username = prompt.ask("Please enter your username: ".green.bold)
+        User.find_by(username: username) ? @current_user = User.verify_password(username) : @current_user = User.create_account(username)
         print "Hello".light_blue
         print " #{@current_user.username}".blue.bold
         puts "!!!!!!".light_blue
-        # binding.pry
     end
 
     def self.menu
@@ -53,8 +49,8 @@ class FlightironApp
     end
 
     def self.select_flight(flights)
-        print "Please select a Flight ID to confirm ticket, 'Q' to quit: ".cyan.bold
-        choice = gets.chomp
+        prompt = TTY::Prompt.new
+        choice = prompt.ask("Please select a Flight ID to confirm ticket, 'Q' to quit: ".cyan.bold)
         case choice
         when 'q' || 'Q'
             puts "Returning to main menu...".green
@@ -68,11 +64,12 @@ class FlightironApp
     end
 
     def self.call_method
+        prompt = TTY::Prompt.new
         choice = self.menu
         case choice
         when "Search for Flights"
-            print "Please enter destination: ".green.bold
-            destination = gets.chomp
+            destination = prompt.ask("Please enter destination: ".green.bold)
+            destination.capitalize
             date = format_date
             Flight.find_flights(destination,date,@current_user)
             self.call_method

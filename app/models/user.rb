@@ -32,17 +32,14 @@ class User < ActiveRecord::Base
     end
 
     def self.verify_password(username)
-        print "Please enter your password: "
-        password_input = gets.chomp
-       # binding.pry
+        prompt = TTY::Prompt.new
+        password_input = prompt.mask("Please enter your password: ")
+
         if User.where(username: username, password: password_input).length != 0
-            #binding.pry
             return User.where(username: username, password: password_input).take
         else
-           # binding.pry
             puts "Incorrect username - password combination"
             self.verify_password(username)
-            #FlightironApp.login
         end
     end
 

@@ -26,7 +26,6 @@ class Flight < ActiveRecord::Base
             "X-RapidAPI-Host" => 'aerodatabox.p.rapidapi.com',
             "X-RapidAPI-Key" => '1e154c357amshfaf5d18e6b67adap1fd93bjsnd7ec462b2288'
         })
-        #binding.pry
         response.body["departures"].each do |flight|
             
             flight_num = flight["number"]
