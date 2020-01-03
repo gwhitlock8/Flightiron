@@ -35,11 +35,30 @@ class FlightironApp
     end
 
     def self.format_date
-        print 'please enter month of travel:'
-        month = gets.chomp
-        print 'please enter day of travel:'
-        day = gets.chomp
+        month = self.get_month
+        day = self.get_day
         "2020-#{month}-#{day}"
+    end
+
+    def self.get_month
+        print "Please enter a month 1-12 : "
+        month = gets.chomp
+        while month.to_i < 1 || month.to_i > 12 || month == "[a-zA-Z]"
+            print "Please enter a month 1-12 : "
+            month = gets.chomp
+        end
+
+        "%02d" % month
+    end
+
+    def self.get_day
+        print "Please enter a day 1-31: "
+        day = gets.chomp
+        while day.to_i < 1 || day.to_i > 31 || day == "[a-zA-Z]"
+            print "Please enter a day 1-31 : "
+            day = gets.chomp
+        end
+        "%02d" % day
     end
 
     def self.display_flights(flights)
@@ -60,7 +79,6 @@ class FlightironApp
         case choice
         when 'q'
             puts 'returning to main menu'
-            self.call_method   
         else
             flight = flights[choice.to_i - 1]
            # binding.pry
@@ -92,7 +110,8 @@ class FlightironApp
            puts 'closing app....'
            puts 'Thank you for using the Flightiron app. Have a nice day.'
         else 
-           puts "Incorrect input. Please enter 1 - 5 \n\n\n"
+           puts "\n\nIncorrect input. Please enter 1 - 5 \n\n\n"
+           sleep(2)
            self.call_method
         end
     end
