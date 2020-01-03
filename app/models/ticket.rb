@@ -1,7 +1,3 @@
-require 'active_record'
-
-
-
 class Ticket < ActiveRecord::Base
 
     belongs_to :flight

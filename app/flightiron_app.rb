@@ -1,9 +1,10 @@
-require 'formatador'
 class FlightironApp
 
     #####This is just a rough version of the app for guidance
     #####If you don't agree with how the methods are called in the #call_method class, make note of it in github or something
     attr_reader :current_user
+
+    prompt = TTY::Prompt.new
 
     def self.start
       self.login
@@ -22,25 +23,21 @@ class FlightironApp
     end
 
     def self.menu
-       
-        puts 'Please select an option:
-        1. Look for flights
-        2. View Tickets - no choose -- broken
-        3. Update Info
-        4. Cancel Flight
-        5. Close App'
-        self.get_user_choice
-    end
-
-    def self.get_user_choice
-        gets.chomp.to_i
+        prompt = TTY::Prompt.new
+        choices = ["Search for Flights","View Purchased Tickets","Update User Profile","Cancel Purchased Flight","Close Flightiron"]
+        prompt.select("Choose an action: ", choices)
     end
 
     def self.format_date
-        print 'please enter month of travel:'
-        month = gets.chomp
-        print 'please enter day of travel:'
-        day = gets.chomp
+        prompt = TTY::Prompt.new
+        month = prompt.ask('Please enter month of travel:') do |q|
+            q.validate /[1-9]|1[0-2]/
+        end
+        month = '0' + month if month.length == 1
+        day = prompt.ask('Please enter day of travel:') do |q|
+            q.validate /[1-9]|1[0-9]|2[0-9]|3[0-1]/
+        end
+        day = '0' + day if day.length == 1
         "2020-#{month}-#{day}"
     end
 
@@ -51,9 +48,7 @@ class FlightironApp
         end
 
         Formatador.display_table(table_data)
-        #format the flight info into a pretty style
-        #show 5 at a time 
-        #add options (show more flights), quit
+
         self.select_flight(flights)
     end
 
@@ -75,22 +70,22 @@ class FlightironApp
     def self.call_method
         choice = self.menu
         case choice
-        when 1
+        when "Search for Flights"
             print "Please enter destination: ".green.bold
             destination = gets.chomp
             date = format_date
             Flight.find_flights(destination,date,@current_user)
             self.call_method
-        when 2
+        when "View Purchased Tickets"
            Ticket.print(@current_user.id)
            self.call_method
-        when 3
+        when "Update User Profile"
             @current_user.user_update
             self.call_method
-        when 4
+        when "Cancel Purchased Flight"
             Ticket.cancel_ticket(@current_user.id)
             self.call_method
-        when 5
+        when "Close Flightiron"
            puts "Closing app....".red.bold
            puts "Thank you for using the Flightiron app. Have a nice day!".green.bold
         else 

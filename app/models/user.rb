@@ -5,7 +5,8 @@ class User < ActiveRecord::Base
 
     
     def self.create_account(username)
-        puts 'User account not found. Creating new account.'
+        prompt = TTY::Prompt.new
+        puts 'User account not found. Creating new account.'.cyan.bold
         print "Please choose a password: "
         password = gets.chomp
         print "Please enter your hometown: "
@@ -22,7 +23,7 @@ class User < ActiveRecord::Base
 
         case choice
         when '1'
-            print 'Please enter your new username: '
+            print "Please enter your new username: "
             username = gets.chomp
             self.update(username: username)
         when '2'

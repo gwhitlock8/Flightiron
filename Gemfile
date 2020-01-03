@@ -12,3 +12,4 @@ gem "rake"
 gem 'unirest'
 gem 'formatador'
 gem 'colorize'
+gem 'tty-prompt'

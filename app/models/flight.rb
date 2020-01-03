@@ -1,6 +1,3 @@
-require 'unirest'
-require 'pry'
-
 class Flight < ActiveRecord::Base
     has_many :tickets
     has_many :users, through: :tickets
