@@ -10,3 +10,5 @@ gem "faker"
 gem "csv"
 gem "rake"
 gem 'unirest'
+gem 'formatador'
+gem 'colorize'

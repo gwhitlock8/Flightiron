@@ -31,17 +31,18 @@ class Flight < ActiveRecord::Base
         })
         #binding.pry
         response.body["departures"].each do |flight|
-                flight_num = flight["number"]
-                airline = flight["airline"]["name"]
-                departure_location = user.hometown
-                departure_date = flight["movement"]["scheduledTimeLocal"].first(10)
-                arrival_location = flight["movement"]["airport"]["name"]
-                Flight.create(flight_number: flight_num,airline: airline, departure_location: departure_location,departure_date:departure_date,arrival_location:arrival_location)
+            
+            flight_num = flight["number"]
+            airline = flight["airline"]["name"]
+            departure_location = user.hometown
+            departure_date = flight["movement"]["scheduledTimeLocal"].first(10)
+            departure_time = flight["movement"]["scheduledTimeLocal"][11,5]
+            arrival_location = flight["movement"]["airport"]["name"]
+            Flight.create(flight_number:flight_num,airline: airline, departure_location: departure_location,departure_date:departure_date,arrival_location:arrival_location,departure_time: departure_time)
         end
 
 
         user_flights = Flight.where(departure_location: user.hometown,arrival_location:city,departure_date:date)
-        #binding.pry
         user_flights
         FlightironApp.display_flights(user_flights)
     end

@@ -1,3 +1,4 @@
+require 'formatador'
 class FlightironApp
 
     #####This is just a rough version of the app for guidance
@@ -10,18 +11,19 @@ class FlightironApp
     end
 
     def self.login
-        puts 'Greetings. Welcome to the flightiron app'
-        print 'please enter your username:'
+        puts "Greetings. Welcome to the flightiron app!".yellow
+        print "Please enter your username: ".green.bold
         username = gets.chomp
-        User.find_by(username: username) ? @current_user = User.verify_password(username) : @current_user = User.create_account(username)
-       # binding.pry
-        puts "Hello #{@current_user.username}!"
-       #  binding.pry
+        User.find_by(username: username) ? @current_user = User.find_by(username: username) : @current_user = User.create_account(username)
+        print "Hello".light_blue
+        print " #{@current_user.username}".blue.bold
+        puts "!!!!!!".light_blue
+        # binding.pry
     end
 
     def self.menu
        
-         puts 'Please select an option:
+        puts 'Please select an option:
         1. Look for flights
         2. View Tickets
         3. Update Info
@@ -62,12 +64,12 @@ class FlightironApp
     end
 
     def self.display_flights(flights)
-        puts "
-        |Option |Flight ID| Departure Date | Location To-From  |
-        --------------------------------------------------------"
+        table_data = []
         flights.each_with_index do |flight, index|
-         puts "|#{index + 1}.    |   #{flight[:flight_number]}  |  #{flight[:departure_date]} |   #{flight[:departure_location]}  - #{flight[:arrival_location]}|"
+            table_data << {"Flight ID" => index + 1, "Date" => flight[:departure_date], "Departure Location" => flight[:departure_location], "Arrival Location" => flight[:arrival_location], "Airline" => flight[:airline],"Departure Time" => flight[:departure_time]}
         end
+
+        Formatador.display_table(table_data)
         #format the flight info into a pretty style
         #show 5 at a time 
         #add options (show more flights), quit
@@ -75,14 +77,14 @@ class FlightironApp
     end
 
     def self.select_flight(flights)
-        puts 'please select a flight to confirm ticket, q to quit'
+        print "Please select a Flight ID to confirm ticket, 'Q' to quit: ".cyan.bold
         choice = gets.chomp
         case choice
-        when 'q'
-            puts 'returning to main menu'
+        when 'q' || 'Q'
+            puts "Returning to main menu...".green
+            self.call_method   
         else
             flight = flights[choice.to_i - 1]
-           # binding.pry
             new_ticket = Ticket.create(user_id: @current_user.id, flight_id: flight.id)
             @current_user.tickets << new_ticket
             flight.tickets << new_ticket
@@ -93,11 +95,11 @@ class FlightironApp
         choice = self.menu
         case choice
         when 1
-            print 'please enter destination:'
+            print "Please enter destination: ".green.bold
             destination = gets.chomp
             date = format_date
-           Flight.find_flights(destination,date,@current_user)
-           self.call_method
+            Flight.find_flights(destination,date,@current_user)
+            self.call_method
         when 2
            Ticket.print(@current_user.id)
            self.call_method
@@ -108,11 +110,10 @@ class FlightironApp
             Ticket.cancel_ticket(@current_user.id)
             self.call_method
         when 5
-           puts 'closing app....'
-           puts 'Thank you for using the Flightiron app. Have a nice day.'
+           puts "Closing app....".red.bold
+           puts "Thank you for using the Flightiron app. Have a nice day!".green.bold
         else 
-           puts "\n\nIncorrect input. Please enter 1 - 5 \n\n\n"
-           sleep(2)
+           puts "Invalid Selection. Try again!".red.bold
            self.call_method
         end
     end
