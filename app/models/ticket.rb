@@ -19,29 +19,19 @@ class Ticket < ActiveRecord::Base
     end
 
     def self.check_ticket(user_id)
-        self.print(user_id)
         prompt = TTY::Prompt.new
-        flight_choice = prompt.ask('Please select the flight id of the ticket you would like to cancel: '.red.bold)
-        flight_choice.to_i
-        if Ticket.find_by(user_id: user_id,flight_id: flight_choice)
-            Ticket.find_by(user_id: user_id,flight_id: flight_choice).destroy
-        else
-            puts "Flight ID is not in list of purchased tickets."
-            sleep(1)
-            self.check_ticket(user_id)
+        ticket_choices = []
+        ticket_hash = {}
+        Ticket.where(user_id: user_id).each do |ticket|
+            ticket_hash = {"Flight ID: #{ticket.flight_id} | Destination: #{ticket.flight.arrival_location} | Date/Time: #{ticket.flight.departure_date}/#{ticket.flight.departure_time} | Airline: #{ticket.flight.airline}" => ticket.id}
+            ticket_choices << ticket_hash
         end
-        #             matching_id = Ticket.where(user_id: user_id).find do |ticket|
-        #     ticket.flight_id == flight_choice
-        # end
-        # binding.pry
-        # if matching_id
-        #     matching_id
-        # else
-        #     puts 'Flight ID does not match'
-        #     sleep(2)
-        #     matching_id = self.check_ticket(user_id)
-        # end
-        # matching_id
+        cancel_ticket_id = prompt.multi_select("Select flights to cancel", ticket_choices)
+        cancel_ticket_id.each do |ticket|
+            ticket_to_destroy = Ticket.find_by_id(ticket)
+            ticket_to_destroy.destroy
+        end
+
     end
 
 end

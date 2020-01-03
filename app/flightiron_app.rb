@@ -38,13 +38,11 @@ class FlightironApp
     def self.format_date
         prompt = TTY::Prompt.new
         month = prompt.ask('Please enter month of travel:') do |q|
-            q.validate /[1-9]|1[0-2]/
+            q.validate /0[1-9]|1[0-2]/
         end
-        month = '0' + month if month.length == 1
         day = prompt.ask('Please enter day of travel:') do |q|
-            q.validate /[1-9]|1[0-9]|2[0-9]|3[0-1]/
+            q.validate /0[1-9]|1[0-9]|2[0-9]|3[0-1]/
         end
-        day = '0' + day if day.length == 1
         "2020-#{month}-#{day}"
     end
 
