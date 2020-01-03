@@ -4,8 +4,19 @@ class FlightironApp
     prompt = TTY::Prompt.new
 
     def self.start
-      self.login
-      self.call_method
+        puts "
+                                            |
+                                            |
+                                            |
+                                          .-'-.
+                                         ' ___ '
+                               ---------'  .-.  '---------
+               _________________________'  '-'  '_________________________
+                ''''''-|---|--/    \==][^',_m_,'^][==/    \--|---|-''''''
+                              \    /  ||/   H   \||  \    /
+                               '--'   OO   O|O   OO   '--'".green.bold
+        self.login
+        self.call_method
     end
 
     def self.login
