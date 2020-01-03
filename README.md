@@ -16,13 +16,13 @@ Flightiron's goal is to make finding and selecting flights easy. Flightiron simp
 ## Technologies 
 This project uses
 
--Ruby 2.6
--ActiveRecord 5.2
--Formatador
--tty-prompt
--colorize
--sqlite3 ~>1.3.6
--rake
+* Ruby 2.6
+* ActiveRecord 5.2
+* Formatador
+* tty-prompt
+* colorize
+* sqlite3 ~>1.3.6
+* rake
 
 ## Setup
 To run the program from terminal, you must:
@@ -35,16 +35,16 @@ To run the program from terminal, you must:
 ```
 
 ### Features
--Select flights based on your requirements
--Veiw and cancel your tickets
--Change your information
--Navigate the command prompt using arrow keys
+* Select flights based on your requirements
+* Veiw and cancel your tickets
+* Change your information
+* Navigate the command prompt using arrow keys
 
 ## To Do
--Make Usernames unique
--Option to find forgotten password
--Encrypt passwords
--Limit flights displayed at a time
+* Make Usernames unique
+* Option to find forgotten password
+* Encrypt passwords
+* Limit flights displayed at a time
 
 ### Project Status
 Effort to implement to-do and add features for improved user experience
