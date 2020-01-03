@@ -13,16 +13,17 @@ class FlightironApp
         puts 'Greetings. Welcome to the flightiron app'
         print 'please enter your username:'
         username = gets.chomp
-        User.find_by(username: username) ? @current_user = User.find_by(username: username) : @current_user = User.create_account(username)
+        User.find_by(username: username) ? @current_user = User.verify_password(username) : @current_user = User.create_account(username)
+       # binding.pry
         puts "Hello #{@current_user.username}!"
-        # binding.pry
+       #  binding.pry
     end
 
     def self.menu
        
          puts 'Please select an option:
         1. Look for flights
-        2. View Tickets - no choose -- broken
+        2. View Tickets
         3. Update Info
         4. Cancel Flight
         5. Close App'
@@ -42,9 +43,10 @@ class FlightironApp
     end
 
     def self.display_flights(flights)
-        puts "|Flight ID|  Departure Date| Location To-From   |"
+        puts "| |Flight ID|  Departure Date| Location To-From   |
+        -----------------------------------------"
         flights.each_with_index do |flight, index|
-            puts "#{index + 1}. #{flight[:flight_number]} -- #{flight[:departure_location]}"
+         puts "#{index + 1}. #{flight[:flight_number]} -- #{flight[:departure_location]}"
         end
         #format the flight info into a pretty style
         #show 5 at a time 
@@ -61,7 +63,7 @@ class FlightironApp
             self.call_method   
         else
             flight = flights[choice.to_i - 1]
-            binding.pry
+           # binding.pry
             new_ticket = Ticket.create(user_id: @current_user.id, flight_id: flight.id)
             @current_user.tickets << new_ticket
             flight.tickets << new_ticket
@@ -90,7 +92,7 @@ class FlightironApp
            puts 'closing app....'
            puts 'Thank you for using the Flightiron app. Have a nice day.'
         else 
-           puts "wrong input try again dummy\n\n\n"
+           puts "Incorrect input. Please enter 1 - 5 \n\n\n"
            self.call_method
         end
     end
