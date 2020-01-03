@@ -62,10 +62,11 @@ class FlightironApp
     end
 
     def self.display_flights(flights)
-        puts "| |Flight ID|  Departure Date| Location To-From   |
-        -----------------------------------------"
+        puts "
+        |Option |Flight ID| Departure Date | Location To-From  |
+        --------------------------------------------------------"
         flights.each_with_index do |flight, index|
-         puts "#{index + 1}. #{flight[:flight_number]} -- #{flight[:departure_location]}"
+         puts "|#{index + 1}.    |   #{flight[:flight_number]}  |  #{flight[:departure_date]} |   #{flight[:departure_location]}  - #{flight[:arrival_location]}|"
         end
         #format the flight info into a pretty style
         #show 5 at a time 

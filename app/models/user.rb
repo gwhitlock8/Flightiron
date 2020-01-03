@@ -17,9 +17,10 @@ class User < ActiveRecord::Base
         puts 'Please select the attribute that you would like to update:
         1. username
         2. password
-        3. hometown'
+        3. hometown
+        q. quit'
         choice = gets.chomp
-
+        #binding.pry
         case choice
         when '1'
             print 'Please enter your new username: '
@@ -33,8 +34,10 @@ class User < ActiveRecord::Base
             print 'Please enter your new hometown: '
             hometown = gets.chomp
             self.update(hometown: hometown)
+        when 'q'  || 'Q'
+            puts 'returning to menu....'
         else
-            puts 'Please enter a number between 1 - 3.'
+            puts 'Please enter a number between 1 - 3, or q to quit.'
             self.user_update
         end
     end
