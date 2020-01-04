@@ -35,9 +35,22 @@ To run the program from terminal, you must:
 ```
 
 ### Features
+* Create Account
+
+![Create User Account demo](demo/create_user_account.gif)
+
 * Select flights based on your requirements
+
+![Search Flight demo](demo/search_for_flight.gif)
+
 * Veiw and cancel your tickets
+
+![Cancel Flight(s) demo](demo/cancel_purchased_flights.gif)
+
 * Change your information
+
+![Update User Profile demo](demo/update_user_profile.gif)
+
 * Navigate the command prompt using arrow keys
 
 ## To Do
