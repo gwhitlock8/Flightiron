@@ -24,7 +24,7 @@ class Flight < ActiveRecord::Base
         response = Unirest.get(search_url,
         headers: {
             "X-RapidAPI-Host" => 'aerodatabox.p.rapidapi.com',
-            "X-RapidAPI-Key" => '1e154c357amshfaf5d18e6b67adap1fd93bjsnd7ec462b2288'
+            "X-RapidAPI-Key" => ENV[API_KEY]
         })
         response.body["departures"].each do |flight|
             

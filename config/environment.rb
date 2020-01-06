@@ -2,9 +2,11 @@ require 'bundler'
 require 'active_record'
 require 'formatador'
 Bundler.require
+Dotenv.load
 
 
 require_relative '../app/flightiron_app.rb'
+
 
 old_logger = ActiveRecord::Base.logger
 ActiveRecord::Base.logger = nil
